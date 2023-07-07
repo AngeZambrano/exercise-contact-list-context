@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export const AddContact = () => {
+	const [contact, setContact] = useState({
+		full_name: "",
+		email: "",
+		agenda_slug: "angelica_quijada",
+		address: "",
+		phone: ""
+	});
+
+	const createContact = event => {
+		event.preventDefault();
+		console.log(contact);
+	};
+
 	return (
 		<div className="container">
 			<div>

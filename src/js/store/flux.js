@@ -12,19 +12,19 @@ const getState = ({ getStore, setStore }) => {
 					method: "GET"
 				})
 					.then(response => response.json())
-					.then(data => console.log({ contacts: data }))
+					.then(data => setStore({ contacts: data }))
 					.then(error => console.log(error));
 			},
 
 			updateContact: (full_name, email, address, phone) => {
 				fetch("https://assets.breatheco.de/apis/fake/contact/", {
-					method: "POST",
+					method: "PUT",
 					headers: { "Content-Type": "application/json" },
 
 					body: JSON.stringify({
 						full_name: full_name,
 						email: email,
-						agenda_slug: "bertablancpastoragenda",
+						agenda_slug: "angelica?quijada",
 						address: address,
 						phone: phone
 					})

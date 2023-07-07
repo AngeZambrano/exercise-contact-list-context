@@ -11,12 +11,13 @@ export const Contacts = () => {
 	});
 
 	const { store, actions } = useContext(Context);
+	const [contacts] = useState(store.contacts);
 
 	useEffect(() => {
 		actions.getContact();
 	}, []);
 
-	// console.log(store.contacts);
+	console.log(store.contacts);
 
 	return (
 		<div className="container">
@@ -31,10 +32,6 @@ export const Contacts = () => {
 						{store.contacts.map(item => (
 							<ContactCard key={item.id} onDelete={() => setState({ showModal: true })} />
 						))}
-						{/* <ContactCard onDelete={() => setState({ showModal: true })} />
-						<ContactCard />
-						<ContactCard />
-						<ContactCard /> */}
 					</ul>
 				</div>
 			</div>

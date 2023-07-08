@@ -11,13 +11,13 @@ export const Contacts = () => {
 	});
 
 	const { store, actions } = useContext(Context);
-	const [contacts] = useState(store.contacts);
+	// const [contacts] = useState(store.contacts);
 
 	useEffect(() => {
 		actions.getContact();
 	}, []);
 
-	console.log(store.contacts);
+	// console.log(store.contacts);
 
 	return (
 		<div className="container">
@@ -29,9 +29,21 @@ export const Contacts = () => {
 				</p>
 				<div id="contacts" className="panel-collapse collapse show" aria-expanded="true">
 					<ul className="list-group pull-down" id="contact-list">
-						{store.contacts.map(item => (
-							<ContactCard key={item.id} onDelete={() => setState({ showModal: true })} />
-						))}
+						{store.contacts.length > 0 ? (
+							store.contacts.map(item => (
+								<ContactCard
+									key={item.id}
+									full_name={item.full_name}
+									address={item.address}
+									phone={item.phone}
+									email={item.email}
+								/>
+							))
+						) : (
+							<p className="fs-1 fw-bold text-center">
+								No tienes contactos todavía. Añade un contacto clickando a Add new contact
+							</p>
+						)}
 					</ul>
 				</div>
 			</div>

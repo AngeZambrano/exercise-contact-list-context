@@ -13,11 +13,11 @@ const getState = ({ getStore, setStore }) => {
 				})
 					.then(response => response.json())
 					.then(data => setStore({ contacts: data }))
-					.then(error => console.log(error));
+					.catch(error => console.log(error));
 			},
 
-			updateContact: (full_name, email, address, phone) => {
-				fetch("https://assets.breatheco.de/apis/fake/contact/", {
+			updateContact: (id, full_name, email, address, phone) => {
+				fetch(`https://assets.breatheco.de/apis/fake/contact/${id}`, {
 					method: "PUT",
 					headers: { "Content-Type": "application/json" },
 
@@ -31,7 +31,7 @@ const getState = ({ getStore, setStore }) => {
 				})
 					.then(response => response.jason())
 					.then(data => console.log(data))
-					.then(error => console.log(error));
+					.catch(error => console.log(error));
 			}
 		}
 	};

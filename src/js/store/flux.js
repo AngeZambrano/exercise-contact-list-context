@@ -2,7 +2,8 @@ const getState = ({ getStore, setStore, getActions }) => {
 	return {
 		store: {
 			//Your data structures, A.K.A Entities
-			contacts: []
+			contacts: [],
+			contactInfo: []
 		},
 		actions: {
 			//(Arrow) Functions that update the Store
@@ -17,6 +18,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			},
 
 			updateContact: (id, full_name, email, address, phone) => {
+				console.log(id);
 				fetch(`https://assets.breatheco.de/apis/fake/contact/${id}`, {
 					method: "PUT",
 					headers: { "Content-Type": "application/json" },
@@ -43,6 +45,15 @@ const getState = ({ getStore, setStore, getActions }) => {
 						if (data.msg === "ok") getActions().getContacts();
 					})
 					.catch(error => console.log(error));
+			},
+
+			oneParticularContact: id => {
+				fetch(`https://assets.breatheco.de/apis/fake/contact/${id}`, {
+					method: "GET"
+				})
+				.then(response => response.json())
+				.then(data => console.log(data))
+				.catch(error => console.log(error));
 			}
 		}
 	};

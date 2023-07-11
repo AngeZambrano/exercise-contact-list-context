@@ -7,14 +7,15 @@ import { Context } from "../store/appContext.js";
 
 export const Contacts = () => {
 	const [state, setState] = useState({
-		showModal: false
+		showModal: false,
+		id: null
 	});
 
 	const { store, actions } = useContext(Context);
 	// const [contacts] = useState(store.contacts);
 
 	useEffect(() => {
-		actions.getContact();
+		actions.getContacts();
 	}, []);
 
 	// console.log(store.contacts);
@@ -32,11 +33,13 @@ export const Contacts = () => {
 						{store.contacts.length > 0 ? (
 							store.contacts.map(item => (
 								<ContactCard
+									id={item.id}
 									key={item.id}
 									full_name={item.full_name}
 									address={item.address}
 									phone={item.phone}
 									email={item.email}
+									onDelete={() => setState({ showModal: true, id: item.id })}
 								/>
 							))
 						) : (
@@ -47,7 +50,7 @@ export const Contacts = () => {
 					</ul>
 				</div>
 			</div>
-			<Modal show={state.showModal} onClose={() => setState({ showModal: false })} />
+			<Modal show={state.showModal} onClose={() => setState({ showModal: false })} id={state.id} />
 		</div>
 	);
 };

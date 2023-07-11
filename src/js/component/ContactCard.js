@@ -9,8 +9,6 @@ export const ContactCard = props => {
 		//initialize state here
 	});
 
-	const { store, actions } = useContext(Context);
-
 	return (
 		<li className="list-group-item">
 			<div className="row w-100">

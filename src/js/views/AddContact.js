@@ -5,14 +5,14 @@ export const AddContact = () => {
 	const [contact, setContact] = useState({
 		full_name: "",
 		email: "",
-		agenda_slug: "agendabertablancpastor",
+		agenda_slug: "angelica_quijada",
 		address: "",
 		phone: ""
 	});
 
 	const createContact = event => {
 		event.preventDefault();
-		// console.log(contact);
+		console.log(contact);
 
 		fetch("https://assets.breatheco.de/apis/fake/contact/", {
 			method: "POST",
@@ -22,11 +22,11 @@ export const AddContact = () => {
 		})
 			.then(response => response.json())
 			.then(data => console.log(data))
-			.catch(error => console.log(error))
+			.catch(error => console.log(error));
 	};
 
 	const handleOnChange = event => {
-		setContact[{ ...contact, [event.target.name]: event.target.value }];
+		setContact({ ...contact, [event.target.name]: event.target.value });
 	};
 
 	return (

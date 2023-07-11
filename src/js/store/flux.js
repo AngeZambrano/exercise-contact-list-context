@@ -1,4 +1,4 @@
-const getState = ({ getStore, setStore }) => {
+const getState = ({ getStore, setStore, getActions }) => {
 	return {
 		store: {
 			//Your data structures, A.K.A Entities
@@ -7,7 +7,7 @@ const getState = ({ getStore, setStore }) => {
 		actions: {
 			//(Arrow) Functions that update the Store
 			// Remember to use the scope: scope.state.store & scope.setState()
-			getContact: () => {
+			getContacts: () => {
 				fetch("https://assets.breatheco.de/apis/fake/contact/agenda/angelica_quijada", {
 					method: "GET"
 				})
@@ -31,6 +31,17 @@ const getState = ({ getStore, setStore }) => {
 				})
 					.then(response => response.jason())
 					.then(data => console.log(data))
+					.catch(error => console.log(error));
+			},
+
+			deleteContact: id => {
+				fetch(`https://assets.breatheco.de/apis/fake/contact/${id}`, {
+					method: "DELETE"
+				})
+					.then(response => response.json())
+					.then(data => {
+						if (data.msg === "ok") getActions().getContacts();
+					})
 					.catch(error => console.log(error));
 			}
 		}

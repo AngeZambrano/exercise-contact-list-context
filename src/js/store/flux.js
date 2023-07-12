@@ -18,7 +18,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			},
 
 			updateContact: (id, full_name, email, address, phone) => {
-				console.log(id);
+				// console.log(id);
 				fetch(`https://assets.breatheco.de/apis/fake/contact/${id}`, {
 					method: "PUT",
 					headers: { "Content-Type": "application/json" },
@@ -31,7 +31,11 @@ const getState = ({ getStore, setStore, getActions }) => {
 						phone: phone
 					})
 				})
-					.then(response => response.jason())
+					// .then(response => {
+					// 	if (response.status === 200) getActions().getContacts();
+					// 	return response.JSON;
+					// })
+					.then(response => response.json())
 					.then(data => console.log(data))
 					.catch(error => console.log(error));
 			},
@@ -51,9 +55,12 @@ const getState = ({ getStore, setStore, getActions }) => {
 				fetch(`https://assets.breatheco.de/apis/fake/contact/${id}`, {
 					method: "GET"
 				})
-				.then(response => response.json())
-				.then(data => console.log(data))
-				.catch(error => console.log(error));
+					.then(response => response.json())
+					.then(data => {
+						setStore({ contactInfo: data });
+						console.log(data);
+					})
+					.catch(error => console.log(error));
 			}
 		}
 	};

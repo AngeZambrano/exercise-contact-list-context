@@ -10,6 +10,35 @@ export const ModalUpdate = props => {
 
 	const { actions, store } = useContext(Context);
 
+	const contactInfo = store.contactInfo;
+
+	const [contact, setContact] = useState({
+		full_name: contactInfo.full_name,
+		email: contactInfo.email,
+		agenda_slug: "angelica_quijada",
+		address: contactInfo.address,
+		phone: contactInfo.phone
+	});
+
+	const handelUpdate = e => {
+		e.preventDefault();
+		actions.updateContact(
+			contactInfo.id,
+			contactInfo.full_name,
+			contactInfo.email,
+			contactInfo.address,
+			contactInfo.phone
+		);
+		props.onClose();
+	};
+
+	const handleChange = e => {
+		setContact({ ...contact, [e.target.nname]: e.target.value });
+	};
+
+	useEffect(() => {
+		props.id ? actions.oneParticularContact(props.id) : null;
+	}, []);
 
 	return (
 		<div className="modal" tabIndex="-1" role="dialog" style={{ display: props.show ? "inline-block" : "none" }}>
@@ -31,45 +60,68 @@ export const ModalUpdate = props => {
 						)}
 					</div>
 					<div className="modal-body">
-						<form>
+						<form onSubmit={e => handelUpdate(e)}>
 							<div className="form-group">
 								<label>Full Name</label>
-								<input type="text"/>
+								<input
+									type="text"
+									onChange={handleChange}
+									className="form-control"
+									defaultValue={contactInfo.full_name}
+									name="full_name"
+								/>
 							</div>
 							<div className="form-group">
 								<label>Email</label>
-								<input type="email"/>
+								<input
+									type="email"
+									onChange={handleChange}
+									className="form-control"
+									defaultValue={contactInfo.email}
+									name="email"
+								/>
 							</div>
 							<div className="form-group">
 								<label>Phone</label>
-								<input type="phone"/>
+								<input
+									type="phone"
+									onChange={handleChange}
+									className="form-control"
+									defaultValue={contactInfo.phone}
+									name="phone"
+								/>
 							</div>
 							<div className="form-group">
 								<label>Address</label>
-								<input type="text"/>
+								<input
+									type="text"
+									onChange={handleChange}
+									className="form-control"
+									defaultValue={contactInfo.address}
+									name="address"
+								/>
+							</div>
+							<div className="modal-footer">
+								{props.onClose ? (
+									<input
+										onClick={() => props.onClose()}
+										type="button"
+										className="btn btn-primary"
+										data-dismiss="modal"
+										value="On no!"
+									/>
+								) : (
+									""
+								)}
+
+								<input
+									type="submit"
+									className="btn btn-secondary"
+									data-dismiss="modal"
+									value="Update it"
+								/>
 							</div>
 						</form>
-					</div>
-					<div className="modal-footer">
-						{props.onClose ? (
-							<button
-								onClick={() => props.onClose()}
-								type="button"
-								className="btn btn-primary"
-								data-dismiss="modal">
-								Oh no!
-							</button>
-						) : (
-							""
-						)}
-
-						<button
-							onClick={() => handleDelete()}
-							type="button"
-							className="btn btn-secondary"
-							data-dismiss="modal">
-							Do it!
-						</button>
 					</div>
 				</div>
 			</div>
@@ -80,7 +132,7 @@ export const ModalUpdate = props => {
  * Define the data-types for
  * your component's properties
  **/
-Modal.propTypes = {
+ModalUpdate.propTypes = {
 	history: PropTypes.object,
 	onClose: PropTypes.func,
 	show: PropTypes.bool,
@@ -91,7 +143,7 @@ Modal.propTypes = {
  * Define the default values for
  * your component's properties
  **/
-Modal.defaultProps = {
+ModalUpdate.defaultProps = {
 	show: false,
 	onClose: null
 };
